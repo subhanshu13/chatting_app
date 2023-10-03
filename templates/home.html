@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Home Page</title>
+    {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
+  </head>
+  <body>
+    <nav class="d-flex justify-content-between py-2 px-4">
+      <a class="navbar-brand" href="#">Welcome to ChatBot</a>
+      <a href="{% url 'profile' %}" class="btn btn-primary">Profile</a>
+      </div>
+    </nav>
+    <div id="chat-container">
+      <div id="chat-messages"></div>
+      <input type="text" id="user-message" placeholder="Type a message...">
+      <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script>
+      function sendMessage() {
+          var userMessage = document.getElementById('user-message').value;
+          var chatMessages = document.getElementById('chat-messages');
+
+          // Display user message
+          chatMessages.innerHTML += '<div>User: ' + userMessage + '</div>';
+
+          // Send user message to Django view
+          fetch('', {
+              method: 'POST',
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+              body: 'message=' + userMessage,
+          })
+          .then(response => response.json())
+          .then(data => {
+              // Display bot response
+              chatMessages.innerHTML += '<div>Bot: ' + data.response + '</div>';
+          });
+
+          // Clear input field
+          document.getElementById('user-message').value = '';
+      }
+  </script>
+  </body>
+</html>

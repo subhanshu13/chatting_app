@@ -1,0 +1,3 @@
+django
+rasa
+django-bootstrap-v5
